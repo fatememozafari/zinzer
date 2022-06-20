@@ -18,7 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 // Super admin Routes
-
+Route::group(['prefix' => 'super-admin', 'namespace' => 'SuperAdmin', 'middleware' => 'auth'], function () {
+    Route::get('/manager-dashboard', 'ManagerDashboardController@index')->name('super-admin.manager-dashboard')->middleware('auth');
+});
 
 // Admin Routes
 Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => 'auth'], function () {
@@ -36,6 +38,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => 'auth
     Route::group(['prefix' => 'concretes'], function () {
         Route::get('/create', 'ConcretesController@create')->name('admin.concretes.create');
     });
+
+    // registered-files Routes
+        Route::get('/registered-files', 'RegisteredController@index')->name('admin.registered.index');
+
 });
 
 
