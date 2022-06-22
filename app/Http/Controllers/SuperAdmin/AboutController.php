@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\About;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,31 +12,15 @@ class AboutController extends Controller
 {
     public function index()
     {
-        //
 
-//        $this->checkPermission('cases_read');
 
-        $titleCard = 'لیست';
-        $th = ['شناسه',
-            'title',
-            'price',
-            'contract',
-            'type',
-            'status',
-            'operation'];
-
-        $query = CaseModel::query()
-//            ->where('user_id',Auth::id())
+        $query = About::query()
             ->orderBy('id', 'DESC')
+            ->limit(1)
             ->get();
+        return view('super-admin.about.index', ['items' => $query]);
 
-        return view('admin.cases.index',
-            [
-                'items' => $query,
-                'th' => $th,
-                'titleCard' => $titleCard,
-            ]
-        );
+
 
 //
 //        $query=Post::get();
@@ -91,28 +76,21 @@ class AboutController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
-//        $this->checkPermission('cases_read');
 
-        $query = CaseModel::find($id);
-        return view('admin.cases.show', ['item' => $query]);
+        $query = About::query()
+            ->orderBy('id','DESC')
+            ->first();
+        return view('zinzer.about', ['item' => $query]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
-//        $this->checkPermission('cases_update');
 
-        $query = CaseModel::where('id', $id)->first();
-        return view('admin.cases.edit', ['item' => $query]);
+
+        $query = About::where('id', $id)->first();
+        return view('super-admin.about.edit', ['item' => $query]);
     }
 
     /**
@@ -124,49 +102,19 @@ class AboutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-//        $this->checkPermission('cases_update');
 
         $query = $request->only(
-            'title',
-            'price',
-            'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
-            'avatar_path',
-            'video_path',
-            'details'
+            [  'body',
+                'avatar_path',
+                'user_id'
+            ]
+
         );
         if ($request->file('avatar_path'))
             $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
-        CaseModel::where('id', $id)->update($query);
+        About::where('id', $id)->update($query);
         return back()->with('success', 'ویرایش با موفقیت انجام شد');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-//        $this->checkPermission('cases_delete');
-
-        CaseModel::query()->where('id', $id)->delete();
-        return back();
     }
 
 }

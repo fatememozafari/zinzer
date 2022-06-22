@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,20 +17,18 @@ class ContactController extends Controller
 //        $this->checkPermission('cases_read');
 
         $titleCard = 'لیست';
-        $th = ['شناسه',
-            'title',
-            'price',
-            'contract',
-            'type',
-            'status',
-            'operation'];
+        $th = [
+            'user_id',
+            'body',
+            'avatar_path'
+        ];
 
-        $query = CaseModel::query()
+        $query = Contact::query()
 //            ->where('user_id',Auth::id())
             ->orderBy('id', 'DESC')
             ->get();
 
-        return view('admin.cases.index',
+        return view('admin.contact.index',
             [
                 'items' => $query,
                 'th' => $th,
@@ -51,7 +51,7 @@ class ContactController extends Controller
         //
 //        $this->checkPermission('cases_create');
 
-        return view('admin.cases.create');
+        return view('super-admin.contact.create');
     }
 
     /**
@@ -65,31 +65,16 @@ class ContactController extends Controller
 //        $this->checkPermission('cases_create');
 
         $inputs = $request->only(
-            'title',
-            'price',
             'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
-            'avatar_path',
-            'video_path',
-            'details'
+            'body',
+            'avatar_path'
         );
         $inputs['user_id'] = Auth::user()->id;
 
         if ($request->file('avatar_path'))
             $inputs['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
-        $result = CaseModel::create($inputs);
+        $result = Contact::create($inputs);
         if ($result) {
             return back()->with('success', 'با موفقیت ارسال شد');
         } else {
@@ -104,14 +89,18 @@ class ContactController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-//        $this->checkPermission('cases_read');
 
-        $query = CaseModel::find($id);
-        return view('admin.cases.show', ['item' => $query]);
+
+        public function show()
+    {
+
+        $query = Contact::query()
+            ->orderBy('id','DESC')
+            ->first();
+        return view('zinzer.contact', ['item' => $query]);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -124,8 +113,8 @@ class ContactController extends Controller
         //
 //        $this->checkPermission('cases_update');
 
-        $query = CaseModel::where('id', $id)->first();
-        return view('admin.cases.edit', ['item' => $query]);
+        $query = Contact::where('id', $id)->first();
+        return view('super-admin.contact.edit', ['item' => $query]);
     }
 
     /**
@@ -141,29 +130,14 @@ class ContactController extends Controller
 //        $this->checkPermission('cases_update');
 
         $query = $request->only(
-            'title',
-            'price',
             'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
-            'avatar_path',
-            'video_path',
-            'details'
+            'body',
+            'avatar_path'
         );
         if ($request->file('avatar_path'))
             $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
-        CaseModel::where('id', $id)->update($query);
+        Contact::where('id', $id)->update($query);
         return back()->with('success', 'ویرایش با موفقیت انجام شد');
     }
 
@@ -178,7 +152,7 @@ class ContactController extends Controller
         //
 //        $this->checkPermission('cases_delete');
 
-        CaseModel::query()->where('id', $id)->delete();
+        Contact::query()->where('id', $id)->delete();
         return back();
     }
 

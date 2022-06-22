@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,22 +16,21 @@ class NewsController extends Controller
 //        $this->checkPermission('cases_read');
 
         $titleCard = 'لیست';
-        $th = ['شناسه',
+        $th = [
             'title',
-            'price',
-            'contract',
-            'type',
-            'status',
-            'operation'];
+            'body',
+            'avatar_path',
+            'user_id'
+        ];
 
-        $query = CaseModel::query()
+        $query = News::query()
 //            ->where('user_id',Auth::id())
             ->orderBy('id', 'DESC')
             ->get();
 
-        return view('admin.cases.index',
+        return view('super-admin.manager-dashboard',
             [
-                'items' => $query,
+                'news' => $query,
                 'th' => $th,
                 'titleCard' => $titleCard,
             ]
@@ -51,7 +51,7 @@ class NewsController extends Controller
         //
 //        $this->checkPermission('cases_create');
 
-        return view('admin.cases.create');
+        return view('super-admin.news.create');
     }
 
     /**
@@ -66,32 +66,18 @@ class NewsController extends Controller
 
         $inputs = $request->only(
             'title',
-            'price',
-            'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
+            'body',
             'avatar_path',
-            'video_path',
-            'details'
+            'user_id'
         );
         $inputs['user_id'] = Auth::user()->id;
 
         if ($request->file('avatar_path'))
             $inputs['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
-        $result = CaseModel::create($inputs);
+        $result = News::create($inputs);
         if ($result) {
-            return back()->with('success', 'با موفقیت ارسال شد');
+            return redirect('/super-admin/manager-dashboard')->with('success', 'با موفقیت ارسال شد');
         } else {
             return back()->with('error');
         }
@@ -104,68 +90,56 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-//    public function show($id)
-//    {
-//        //
-////        $this->checkPermission('cases_read');
-//
-//        $query = CaseModel::find($id);
-//        return view('admin.cases.show', ['item' => $query]);
-//    }
+    public function show()
+    {
+        //
+//        $this->checkPermission('cases_read');
 
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param int $id
-//     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-//     */
-//    public function edit($id)
-//    {
-//        //
-////        $this->checkPermission('cases_update');
-//
-//        $query = CaseModel::where('id', $id)->first();
-//        return view('admin.cases.edit', ['item' => $query]);
-//    }
+        $query = News::query()
+            ->orderBy('id','DESC')
+            ->get();
+        return view('zinzer.news', ['item' => $query]);
+    }
 
-//    /**
-//     * Update the specified resource in storage.
-//     *
-//     * @param \Illuminate\Http\Request $request
-//     * @param int $id
-//     * @return \Illuminate\Http\RedirectResponse
-//     */
-//    public function update(Request $request, $id)
-//    {
-//        //
-////        $this->checkPermission('cases_update');
-//
-//        $query = $request->only(
-//            'title',
-//            'price',
-//            'user_id',
-//            'address',
-//            'room_number',
-//            'parking_number',
-//            'bath_number',
-//            'area',
-//            'deposit',
-//            'rent',
-//            'type',
-//            'contract',
-//            'is_vip',
-//            'description',
-//            'status',
-//            'avatar_path',
-//            'video_path',
-//            'details'
-//        );
-//        if ($request->file('avatar_path'))
-//            $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
-//
-//        CaseModel::where('id', $id)->update($query);
-//        return back()->with('success', 'ویرایش با موفقیت انجام شد');
-//    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+//        $this->checkPermission('cases_update');
+
+        $query = News::where('id', $id)->first();
+        return view('super-admin.news.edit', ['item' => $query]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $id)
+    {
+        //
+//        $this->checkPermission('cases_update');
+
+        $query = $request->only(
+            'title',
+            'body',
+            'avatar_path',
+            'user_id'
+        );
+        if ($request->file('avatar_path'))
+            $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
+
+        News::where('id', $id)->update($query);
+        return redirect('/super-admin/manager-dashboard')->with('success', 'ویرایش با موفقیت انجام شد');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -173,13 +147,12 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-//    public function destroy($id)
-//    {
-//        //
-////        $this->checkPermission('cases_delete');
-//
-//        CaseModel::query()->where('id', $id)->delete();
-//        return back();
-//    }
+    public function destroy($id)
+    {
+
+
+        News::query()->where('id', $id)->delete();
+        return back();
+    }
 
 }

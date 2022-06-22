@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
+use App\Models\Article;
+use App\Models\Home;
+use App\Models\News;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,31 +15,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        //
 
-//        $this->checkPermission('cases_read');
 
-        $titleCard = 'لیست';
-        $th = ['شناسه',
-            'title',
-            'price',
-            'contract',
-            'type',
-            'status',
-            'operation'];
-
-        $query = CaseModel::query()
+        $items = Home::query()
 //            ->where('user_id',Auth::id())
             ->orderBy('id', 'DESC')
+            ->limit(3)
             ->get();
 
-        return view('admin.cases.index',
-            [
-                'items' => $query,
-                'th' => $th,
-                'titleCard' => $titleCard,
-            ]
-        );
+        return view('super-admin.home.index', compact('items'));
 
 //
 //        $query=Post::get();
@@ -51,7 +40,7 @@ class HomeController extends Controller
         //
 //        $this->checkPermission('cases_create');
 
-        return view('admin.cases.create');
+        return view('super-admin.home.create');
     }
 
     /**
@@ -65,31 +54,24 @@ class HomeController extends Controller
 //        $this->checkPermission('cases_create');
 
         $inputs = $request->only(
-            'title',
-            'price',
             'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
-            'avatar_path',
-            'video_path',
-            'details'
+            'avatar_path1',
+            'avatar_path2',
+            'avatar_path3',
+
         );
         $inputs['user_id'] = Auth::user()->id;
 
-        if ($request->file('avatar_path'))
-            $inputs['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
+        if ($request->file('avatar_path1'))
+            $inputs['avatar_path1'] = $this->uploadMedia($request->file('avatar_path1'));
 
-        $result = CaseModel::create($inputs);
+        if ($request->file('avatar_path2'))
+            $inputs['avatar_path2'] = $this->uploadMedia($request->file('avatar_path2'));
+
+        if ($request->file('avatar_path3'))
+            $inputs['avatar_path3'] = $this->uploadMedia($request->file('avatar_path3'));
+
+        $result = Home::create($inputs);
         if ($result) {
             return back()->with('success', 'با موفقیت ارسال شد');
         } else {
@@ -104,13 +86,24 @@ class HomeController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
-//        $this->checkPermission('cases_read');
 
-        $query = CaseModel::find($id);
-        return view('admin.cases.show', ['item' => $query]);
+        $item = Home::query()
+            ->orderBy('id','DESC')
+            ->first();
+
+        $articles=Article::query()
+            ->orderBy('id','desc')
+            ->limit(3)
+            ->get();
+        $news=News::query()
+            ->orderBy('id','desc')
+            ->limit(3)
+            ->get();
+        $lists=User::query();
+
+        return view('zinzer.home', compact('item','articles','news'));
     }
 
     /**
@@ -124,8 +117,8 @@ class HomeController extends Controller
         //
 //        $this->checkPermission('cases_update');
 
-        $query = CaseModel::where('id', $id)->first();
-        return view('admin.cases.edit', ['item' => $query]);
+        $query = Home::where('id', $id)->first();
+        return view('super-admin.home.edit', ['item' => $query]);
     }
 
     /**
@@ -141,29 +134,21 @@ class HomeController extends Controller
 //        $this->checkPermission('cases_update');
 
         $query = $request->only(
-            'title',
-            'price',
             'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
-            'avatar_path',
-            'video_path',
-            'details'
+            'avatar_path1',
+            'avatar_path2',
+            'avatar_path3',
         );
-        if ($request->file('avatar_path'))
-            $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
+        if ($request->file('avatar_path1'))
+            $inputs['avatar_path1'] = $this->uploadMedia($request->file('avatar_path1'));
 
-        CaseModel::where('id', $id)->update($query);
+        if ($request->file('avatar_path2'))
+            $inputs['avatar_path2'] = $this->uploadMedia($request->file('avatar_path2'));
+
+        if ($request->file('avatar_path3'))
+            $inputs['avatar_path3'] = $this->uploadMedia($request->file('avatar_path3'));
+
+        Home::where('id', $id)->update($query);
         return back()->with('success', 'ویرایش با موفقیت انجام شد');
     }
 
@@ -178,7 +163,7 @@ class HomeController extends Controller
         //
 //        $this->checkPermission('cases_delete');
 
-        CaseModel::query()->where('id', $id)->delete();
+        Home::query()->where('id', $id)->delete();
         return back();
     }
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
+use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +12,24 @@ class ManagerDashboardController extends Controller
 {
     public function index()
     {
-        return view('super-admin.manager-dashboard');
+        $titleCard = 'لیست';
+        $th = [
+            'title',
+            'body',
+            'avatar_path',
+            'user_id'];
+
+        $article = Article::query()
+//            ->where('user_id',Auth::id())
+            ->orderBy('id', 'DESC')
+            ->get();
+        $news = News::query()
+//            ->where('user_id',Auth::id())
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        return view('super-admin.manager-dashboard',compact('th','article','news'));
+
   }
 
     public function index2()
@@ -129,8 +148,8 @@ class ManagerDashboardController extends Controller
         //
 //        $this->checkPermission('cases_update');
 
-        $query = CaseModel::where('id', $id)->first();
-        return view('admin.cases.edit', ['item' => $query]);
+        $news = News::where('id', $id)->first();
+        return view('super_admin.manager-dashboard.edit', compact('news'));
     }
 
     /**
@@ -142,33 +161,16 @@ class ManagerDashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-//        $this->checkPermission('cases_update');
-
         $query = $request->only(
             'title',
-            'price',
-            'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
+            'body',
             'avatar_path',
-            'video_path',
-            'details'
+            'user_id'
         );
         if ($request->file('avatar_path'))
             $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
-        CaseModel::where('id', $id)->update($query);
+        News::where('id', $id)->update($query);
         return back()->with('success', 'ویرایش با موفقیت انجام شد');
     }
 

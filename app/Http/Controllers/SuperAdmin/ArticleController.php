@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,35 +11,27 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        //
-
-//        $this->checkPermission('cases_read');
 
         $titleCard = 'لیست';
-        $th = ['شناسه',
+        $th = [
             'title',
-            'price',
-            'contract',
-            'type',
-            'status',
-            'operation'];
+            'body',
+            'avatar_path',
+            'user_id'];
 
-        $query = CaseModel::query()
+        $query = Article::query()
 //            ->where('user_id',Auth::id())
             ->orderBy('id', 'DESC')
             ->get();
 
-        return view('admin.cases.index',
+        return view('super-admin.manager-dashboard',
             [
-                'items' => $query,
+                'article' => $query,
                 'th' => $th,
                 'titleCard' => $titleCard,
             ]
         );
 
-//
-//        $query=Post::get();
-//        return view('admin.posts.index',['items'=>$query]);
     }
 
     /**
@@ -48,10 +41,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
-//        $this->checkPermission('cases_create');
 
-        return view('admin.cases.create');
+
+        return view('super-admin.article.create');
     }
 
     /**
@@ -62,36 +54,21 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-//        $this->checkPermission('cases_create');
 
         $inputs = $request->only(
             'title',
-            'price',
-            'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
+            'body',
             'avatar_path',
-            'video_path',
-            'details'
+            'user_id'
         );
         $inputs['user_id'] = Auth::user()->id;
 
         if ($request->file('avatar_path'))
             $inputs['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
-        $result = CaseModel::create($inputs);
+        $result = Article::create($inputs);
         if ($result) {
-            return back()->with('success', 'با موفقیت ارسال شد');
+            return redirect('/super-admin/manager-dashboard')->with('success', 'با موفقیت ارسال شد');
         } else {
             return back()->with('error');
         }
@@ -104,13 +81,13 @@ class ArticleController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
-//        $this->checkPermission('cases_read');
 
-        $query = CaseModel::find($id);
-        return view('admin.cases.show', ['item' => $query]);
+        $query = Article::query()
+            ->orderBy('id','DESC')
+            ->get();
+        return view('zinzer.article', ['item' => $query]);
     }
 
     /**
@@ -121,11 +98,10 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
-//        $this->checkPermission('cases_update');
 
-        $query = CaseModel::where('id', $id)->first();
-        return view('admin.cases.edit', ['item' => $query]);
+
+        $query = Article::where('id', $id)->first();
+        return view('super-admin.article.edit', ['item' => $query]);
     }
 
     /**
@@ -137,34 +113,18 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-//        $this->checkPermission('cases_update');
 
         $query = $request->only(
             'title',
-            'price',
-            'user_id',
-            'address',
-            'room_number',
-            'parking_number',
-            'bath_number',
-            'area',
-            'deposit',
-            'rent',
-            'type',
-            'contract',
-            'is_vip',
-            'description',
-            'status',
+            'body',
             'avatar_path',
-            'video_path',
-            'details'
+            'user_id'
         );
         if ($request->file('avatar_path'))
             $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
-        CaseModel::where('id', $id)->update($query);
-        return back()->with('success', 'ویرایش با موفقیت انجام شد');
+        Article::where('id', $id)->update($query);
+        return redirect('/super-admin/manager-dashboard')->with('success', 'ویرایش با موفقیت انجام شد');
     }
 
     /**
@@ -175,10 +135,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
-//        $this->checkPermission('cases_delete');
 
-        CaseModel::query()->where('id', $id)->delete();
+        Article::query()->where('id', $id)->delete();
         return back();
     }
 

@@ -32,6 +32,8 @@ class LoginController extends Controller
 
         $mobile = $request->input('mobile');
         $code = $request->input('code');
+//        $type[] =TwoFactorAuthentication::query()->select('type')->get();
+
 
 
         // check if code is correct or not
@@ -46,7 +48,19 @@ class LoginController extends Controller
             $user = User::where('mobile', $mobile)->first();
 
             if (Auth::loginUsingId($user['id']))
+            {
                 return redirect()->route('admin.dashboard');
+
+//                if ($type['user']){
+//                    return redirect()->route('admin.dashboard');
+//                }
+//
+//                elseif ($type['superadmin']){
+//                    return redirect()->route('super-admin.manager-dashboard');
+//                    }
+
+            }
+
         }
     }
 
@@ -68,6 +82,8 @@ class LoginController extends Controller
         $code = $this->generateCode();
 
         $user = User::where('mobile', $mobile)->first();
+
+//        $type[]=User::query()->select('type')->where('mobile', $mobile)->get();
 
         if ($user) {
 
@@ -137,7 +153,7 @@ class LoginController extends Controller
             'uname' => 'hhaaddii4303',
             'pass' => 'Hadi43003',
             'from' => '+9890000145',
-            'message' => " کد تائید ورود به سامانه انجمن صنفی ژئوتکنیک : {$data['code']}",
+            'message' => " کد تائید ورود به سامانه انجمن صنفی البرز : {$data['code']}",
             'to' => json_encode($rcpt_nm),
             'op' => 'send',
         );
