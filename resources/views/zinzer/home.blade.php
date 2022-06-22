@@ -11,13 +11,13 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-                <img class="d-block img-fluid mx-auto" style="width:100%"  src="{{asset('zinzer/assets/images/small/0001.jpg')}}" alt="اسلاید اول">
+                <img class="d-block img-fluid mx-auto" style="width:100%; height: 500px"  src="{{$item->avatar_path1}}" alt="اسلاید اول">
             </div>
             <div class="carousel-item">
-                <img class="d-block img-fluid mx-auto" style="width: 100%;"  src="{{asset('zinzer/assets/images/small/0002.jpg')}}" alt="اسلاید دوم">
+                <img class="d-block img-fluid mx-auto" style="width: 100%; height: 500px"  src="{{$item->avatar_path2}}" alt="اسلاید دوم">
             </div>
             <div class="carousel-item">
-                <img class="d-block img-fluid mx-auto" style="width: 100%;"  src="{{asset('zinzer/assets/images/small/0003.jpg')}}" alt="اسلاید سوم">
+                <img class="d-block img-fluid mx-auto" style="width: 100%;height: 500px"  src="{{$item->avatar_path3}}" alt="اسلاید سوم">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="قبلی">
@@ -35,37 +35,24 @@
             <h5 class="text-left m-t-30 m-b-20" style="text-align: center;">اخبار و مقاله ها</h5>
             <div class="card-deck-wrapper">
                 <div class="card-deck">
+                    @foreach($articles as $article)
                     <div class="card m-b-30">
-                        <img class="card-img-top img-fluid" src="{{asset('zinzer/assets/images/small/img-4.jpg')}}" alt="Card image cap">
+                        <img class="card-img-top img-fluid" src="{{$article->avatar_path}}" alt="Card image cap">
                         <div class="card-body">
-                            <h4 class="card-title font-16 mt-0">عنوان کارت</h4>
-                            <p class="card-text" style="direction: rtl;text-align: justify">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+                            <h4 class="card-title font-16 mt-0">{{$article->title}}</h4>
+                            <p class="card-text" style="direction: rtl;text-align: justify">{{$article->body}}</p>
 
                             <a href="#about">ادامه مطلب</a>
                         </div>
                     </div>
-                    <div class="card m-b-30">
-                        <img class="card-img-top img-fluid" src="{{asset('zinzer/assets/images/small/img-5.jpg')}}" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title font-16 mt-0">عنوان کارت</h4>
-                            <p class="card-text" style="direction: rtl;text-align: justify">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-
-                            <a href="#about">ادامه مطلب</a>
-                        </div>
-                    </div>
-                    <div class="card m-b-30">
-                        <img class="card-img-top img-fluid" src="{{asset('zinzer/assets/images/small/img-6.jpg')}}" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title font-16 mt-0">عنوان کارت</h4>
-                            <p class="card-text" style="direction: rtl;text-align: justify">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-
-                            <a href="#about">ادامه مطلب</a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
+
+
+
 
     <div class="row" style="padding-right: 50px;padding-left: 50px;padding-bottom: 50px">
         <div class="col-12" style="direction: rtl">

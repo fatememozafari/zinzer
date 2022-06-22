@@ -26,7 +26,7 @@
                         @error('code')
                         {{$message}}
                         @enderror
-
+                        @include('layout.alert')
                         <h4 class="text-muted float-right font-18 mt-4">ورود به انجمن </h4>
 
                         <div>

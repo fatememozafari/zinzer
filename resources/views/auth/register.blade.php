@@ -9,15 +9,15 @@
             <div class="card-body">
                 <div class="p-2">
                     <div>
-                        <a href="index-2.html" class="logo logo-admin"><img src="{{asset('admin/assets/images/logo_dark.png')}}"
+                        <a href="#" class="logo logo-admin"><img src="{{asset('admin/assets/images/logo_dark.png')}}"
                                                                             height="28" alt="logo"></a>
                     </div>
                 </div>
 
                 <div class="p-2">
-
+@include('layout.alert')
                     <form class="form-horizontal m-t-20" method="post"
-                          action="/register">
+                          action="{{route('auth.register.form')}}">
                         @csrf
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">نام کامل شرکت *</label>
@@ -74,30 +74,42 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>گرایش خود را انتخاب کنید*</label>
-                            <div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1" name="trend[]" value="GEOTECHNIC"
-                                           data-parsley-multiple="groups"
-                                           data-parsley-mincheck="2">
-                                    <label class="custom-control-label" for="customCheck1">ژئو تکنیک</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck2" name="trend[]" value="CONCRETE"
-                                           data-parsley-multiple="groups"
-                                           data-parsley-mincheck="2">
-                                    <label class="custom-control-label" for="customCheck2">بتن</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck3" name="trend[]" value="SOLDER"
-                                           data-parsley-multiple="groups"
-                                           data-parsley-mincheck="2">
-                                    <label class="custom-control-label" for="customCheck3">جوش</label>
-                                </div>
-
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">گرایش*</label>
+                            <div class="col-sm-8">
+                                <select class="custom-select" name="trend">
+                                    <option selected>این منوی انتخاب را باز کنید</option>
+                                    <option value="GEOTECHNIC">خاک</option>
+                                    <option value="WELDING">جوش</option>
+                                    <option value="CONCRETE">بتن</option>
+                                </select>
                             </div>
                         </div>
+
+{{--                        <div class="form-group">--}}
+{{--                            <label>گرایش خود را انتخاب کنید*</label>--}}
+{{--                            <div>--}}
+{{--                                <div class="custom-control custom-checkbox">--}}
+{{--                                    <input type="checkbox" class="custom-control-input" id="customCheck1" name="trend[]" value="GEOTECHNIC"--}}
+{{--                                           data-parsley-multiple="groups"--}}
+{{--                                           data-parsley-mincheck="2">--}}
+{{--                                    <label class="custom-control-label" for="customCheck1">ژئو تکنیک</label>--}}
+{{--                                </div>--}}
+{{--                                <div class="custom-control custom-checkbox">--}}
+{{--                                    <input type="checkbox" class="custom-control-input" id="customCheck2" name="trend[]" value="CONCRETE"--}}
+{{--                                           data-parsley-multiple="groups"--}}
+{{--                                           data-parsley-mincheck="2">--}}
+{{--                                    <label class="custom-control-label" for="customCheck2">بتن</label>--}}
+{{--                                </div>--}}
+{{--                                <div class="custom-control custom-checkbox">--}}
+{{--                                    <input type="checkbox" class="custom-control-input" id="customCheck3" name="trend[]" value="SOLDER"--}}
+{{--                                           data-parsley-multiple="groups"--}}
+{{--                                           data-parsley-mincheck="2">--}}
+{{--                                    <label class="custom-control-label" for="customCheck3">جوش</label>--}}
+{{--                                </div>--}}
+
+{{--                            </div>--}}
+{{--                        </div>--}}
 
 
                         <!-- Loader -->
@@ -296,10 +308,10 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="phone" class="col-sm-4 col-form-label">شماره تماس جهت دریافت کد*</label>
+                            <label for="mobile" class="col-sm-4 col-form-label">شماره تماس جهت دریافت کد*</label>
                             <div class="col-sm-8">
-                                <input class="form-control" type="number" value="{{old('phone')?? ''}}" id="phone"
-                                       name="phone">
+                                <input class="form-control" type="number" value="{{old('phone')?? ''}}" id="mobile"
+                                       name="mobile">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -355,7 +367,7 @@
 
                         <div class="form-group m-t-10 mb-0 row">
                             <div class="col-12 m-t-20 text-center">
-                                <a href="pages-login.html" class="text-muted">در حال حاضر حساب کاربری دارید؟</a>
+                                <a href="{{route('auth.login.form')}}" class="text-muted">در حال حاضر حساب کاربری دارید؟</a>
                             </div>
                         </div>
                     </form>

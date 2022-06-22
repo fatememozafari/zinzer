@@ -116,7 +116,6 @@
 
                                     </div>
 
-
                                     <div style="text-align: center;padding-top: 20px">
                                         <button type="file" id="written_request_of_bore_number"
                                                 name="written_request_of_bore_number"
@@ -139,23 +138,27 @@
 
                                 <div class="col-sm-12" style="padding-top: 20px">
                                     <label class="control-label">تعداد چاهک دستی</label>
-                                    <input id="demo1" type="text" value="0" name="demo0" data-bts-min="0"
-                                           data-bts-max="100" data-bts-init-val="" data-bts-step="1"
+                                    <input id="machine_bore_count2" type="text" value="0" name="demo0" data-bts-min="0"
+                                           aria-label=""
+                                           data-bts-max="5" data-bts-init-val="" data-bts-step="1"
                                            data-bts-decimal="0" data-bts-step-interval="100"
-                                           data-bts-force-step-divisibility="round" data-bts-step-interval-delay="500"
-                                           data-bts-prefix="" data-bts-postfix="" data-bts-prefix-extra-class=""
+                                           data-bts-force-step-divisibility="round"
+                                           data-bts-step-interval-delay="500" data-bts-prefix="" data-bts-postfix=""
+                                           data-bts-prefix-extra-class=""
                                            data-bts-postfix-extra-class="" data-bts-booster="true" data-bts-boostat="10"
-                                           data-bts-max-boosted-step="false" data-bts-mousewheel="true"
-                                           data-bts-button-down-class="btn btn-default"
-                                           data-bts-button-up-class="btn btn-default"/>
-                                    <div style="padding-top: 20px">
-                                        <label for="example-number-input">عمق چاهک دستی 1</label>
-                                        <input class="form-control" type="number" value="" id="example-number-input">
+                                           data-bts-max-boosted-step="false"
+                                           data-bts-mousewheel="true" data-bts-button-down-class="btn btn-default"
+                                           data-bts-button-up-class="btn btn-default"
+                                           style="background-color: white" readonly/>
+                                    <span id="machine_bore_error2" style="color: #dc3545;font-size: 12px;display: none">حداکثر تعداد چاهک دستی 5 میباشد</span>
+                                    <div id="machine_bore_wrapper2" class="mt-3">
+
                                     </div>
+
                                     <div style="text-align: center;padding-top: 20px">
-                                        <button type="file" id="written_request_of_well_number"
-                                                name="written_request_of_well_number"
-                                                value="{{old('written_request_of_well_number') ?? ''}}"
+                                        <button type="file" id="written_request_of_well_number2"
+                                                name="written_request_of_well_number2"
+                                                value="{{old('written_request_of_well_number2') ?? ''}}"
                                                 class="btn btn-primary waves-effect waves-light"> آپلود
                                             درخواست کتبی تعداد
                                             چاهک
@@ -317,4 +320,49 @@
         }
     </script>
 
+
+    <script>
+
+        $(document).ready(function () {
+
+
+            $("#machine_bore_count2").on('change', function () {
+
+
+                let count = $(this).val();
+
+                if (count > 5) {
+                    $("#machine_bore_error2").fadeIn('slow');
+                } else {
+                    var html = "";
+                    for (let i = 1; i <= count; i++) {
+                        html += " <label class=\"mt-3\" for=\" example-number-input\">عمق چاهک دستی " + i + "</label>\n" +
+                            "<input class=\"form-control\" name=\"machine_bore[]\" type=\"number\"\n" +
+                            "aria-label=\"machine_bore\">";
+                    }
+
+                    $("#machine_bore_error2").fadeOut('slow');
+                    $("#machine_bore_wrapper2").html(html);
+                }
+            });
+
+
+        });
+
+
+        function increaseValue(button) {
+            const numberInput = button.parentElement.querySelector('.number');
+            var value = parseInt(numberInput.innerHTML, 10);
+            if (isNaN(value)) value = 0;
+            numberInput.innerHTML = value + 1;
+        }
+
+        function decreaseValue(button) {
+            const numberInput = button.parentElement.querySelector('.number');
+            var value = parseInt(numberInput.innerHTML, 10);
+            if (isNaN(value)) value = 0;
+            if (value < 1) return;
+            numberInput.innerHTML = value - 1;
+        }
+    </script>
 @endsection

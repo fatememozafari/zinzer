@@ -98,7 +98,8 @@
                    aria-haspopup="false" aria-expanded="false">
                     {{--                    <img src="{{asset('admin//assets/images/users/avatar-6.jpg')}}" alt="user" class="rounded-circle">--}}
                     <span class="d-none d-md-inline-block ml-1">
-                        {{auth()->user()->getFullName()}}
+{{--                        {{auth()->user()->getFullName()}}--}}
+                        {{\Illuminate\Support\Facades\Auth::user()->company_name ?? ''}} خوش امدید
                         <i class="fa fa-user px-1"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
