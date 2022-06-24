@@ -13,7 +13,7 @@ class Installment extends Model
     protected $guarded = ['id'];
 
     // installments count
-    const CASH = 'cash';
+    const CASH = 'Cash';
     const ONE_INSTALLMENT = 'One_Installment';
     const TWO_INSTALLMENT = 'Two_Installment';
     const THREE_INSTALLMENT = 'Three_Installment';
