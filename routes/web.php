@@ -16,7 +16,10 @@ use \App\Http\Controllers\SuperAdmin\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/',function ()
+{
+        return view('zinzer.home');
+});
 
 // Super admin Routes
 Route::group(['prefix' => 'super-admin', 'namespace' => 'SuperAdmin', 'middleware' => 'auth'], function () {
