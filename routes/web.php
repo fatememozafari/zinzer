@@ -27,12 +27,33 @@ Route::group(['prefix' => 'super-admin', 'namespace' => 'SuperAdmin', 'middlewar
 
 
 // Admin Routes
-Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => 'auth'], function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard')->middleware('auth');
-    // GeoTechnics Routes
-    Route::group(['prefix' => 'geotechnics'], function () {
-        Route::get('/create', 'GeoTechnicsController@create')->name('admin.geotechnics.create');
-    });
+
+    Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => 'auth'], function () {
+
+        Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard')->middleware('auth');
+
+        // GeoTechnics Routes
+        Route::group(['prefix' => 'geotechnics'], function () {
+
+            Route::get('/','GeotechnicsController@index')->name('admin.geotechnics');
+            Route::get('/create', 'GeoTechnicsController@create')->name('admin.geotechnics.create');
+            Route::post('/store', 'GeoTechnicsController@store')->name('admin.geotechnics.store');
+
+            Route::get('/complete-register/{geotechnic}', 'GeotechnicsController@completeRegister')->name('admin.geotechnics.complete-register');
+            Route::post('/complete-register/store/{geotechnic}', 'GeotechnicsController@completeRegisteStore')->name('admin.geotechnics.complete-register-store');
+        });
+
+
+        Route::group(['prefix' => 'owners'], function () {
+            Route::get('/verify','OwnersController@verify')->name('admin.owners.verify');
+        });
+
+
+
+
+
+
+
 
     // weldings Routes
     Route::group(['prefix' => 'weldings'], function () {
