@@ -16,9 +16,9 @@ class CreateHomesTable extends Migration
         Schema::create('homes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->longText('avatar_path1')->nullable();
-            $table->longText('avatar_path2')->nullable();
-            $table->longText('avatar_path3')->nullable();
+            $table->string('avatar_path1')->nullable();
+            $table->string('avatar_path2')->nullable();
+            $table->string('avatar_path3')->nullable();
             $table->timestamps();
         });
     }
