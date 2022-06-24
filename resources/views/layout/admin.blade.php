@@ -51,7 +51,7 @@
 <!-- Begin page -->
 <div id="wrapper">
 
-<!-- Begin : SideBar -->
+    <!-- Begin : SideBar -->
 @include('admin.partials.sidebar')
 <!-- End : SideBar -->
     <!-- Start right Content here -->

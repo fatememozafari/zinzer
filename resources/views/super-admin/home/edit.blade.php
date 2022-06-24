@@ -25,7 +25,7 @@
                             <div class="col-lg-4">
                                 <div class="carousel-item active">
                                     <img class="d-block img-fluid mx-auto" style="width:100%"
-                                         src="{{asset('zinzer/assets/images/small/0001.jpg')}}" alt="اسلاید اول">
+                                         src="{{$item->avatar_path1}}" alt="اسلاید اول">
                                 </div>
                                 <div class="button-items" style="text-align: left">
 
@@ -39,7 +39,7 @@
                             <div class="col-lg-4">
                                 <div class="carousel-item active">
                                     <img class="d-block img-fluid mx-auto" style="width:100%"
-                                         src="{{asset('zinzer/assets/images/small/0001.jpg')}}" alt="اسلاید اول">
+                                         src="{{$item->avatar_path2}}" alt="اسلاید اول">
                                 </div>
                                 <div class="button-items" style="text-align: left">
 
@@ -54,7 +54,7 @@
                             <div class="col-lg-4">
                                 <div class="carousel-item active">
                                     <img class="d-block img-fluid mx-auto" style="width:100%"
-                                         src="{{asset('zinzer/assets/images/small/0001.jpg')}}" alt="اسلاید اول">
+                                         src="{{$item->avatar_path3}}" alt="اسلاید اول">
                                 </div>
                                 <div class="button-items" style="text-align: left">
 

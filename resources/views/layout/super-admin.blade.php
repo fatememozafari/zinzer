@@ -46,7 +46,7 @@
                             <div class="page-title-box">
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
-                                        <h4 class="page-title m-0">ویرایش بخشش های سایت</h4>
+                                        <h4 class="page-title m-0">ویرایش بخش های سایت</h4>
                                     </div>
 
                                     <!-- end col -->
@@ -91,6 +91,7 @@
 <!-- Required datatable js -->
 <script src="{{asset('zinzer/assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('zinzer/assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
 
 <!-- Buttons examples -->
 <script src="{{asset('zinzer/assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
@@ -139,6 +140,8 @@
 
 <!-- App js -->
 <script src="{{asset('zinzer/assets/js/app.js')}}"></script>
+
+
 
 </body>
 

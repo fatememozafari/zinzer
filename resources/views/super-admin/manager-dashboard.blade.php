@@ -122,13 +122,13 @@
         <strong><b>ویرایش و افزودن مقاله ها</b></strong>
     </div>
 </div>
-<div class="row" style="padding-right: 20px;padding-left: 20px">
-    <div class="col-12">
-        <div class="card m-b-30">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+    <div class="row" style="padding-right: 20px;padding-left: 20px">
+        <div class="col-12">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100% ;">
                             <thead>
                             <tr>
                                 <th>عنوان</th>
@@ -271,4 +271,16 @@
     </div>
 </div>
 {{--   <!-- end row -->--}}
+
+    <script>
+        var $  = require( 'jquery' );
+        var dt = require( 'datatables.net' )();
+
+    </script>
+
+
+
+
+
+
 @endsection
