@@ -111,7 +111,7 @@ class AboutController extends Controller
 
         );
         if ($request->file('avatar_path'))
-            $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
+          $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
         About::where('id', $id)->update($query);
         return back()->with('success', 'ویرایش با موفقیت انجام شد');

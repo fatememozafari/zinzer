@@ -139,16 +139,23 @@ class HomeController extends Controller
             'avatar_path2',
             'avatar_path3',
         );
-        if ($request->file('avatar_path1'))
-            $inputs['avatar_path1'] = $this->uploadMedia($request->file('avatar_path1'));
+        if ($request->file('avatar_path1')){
+            $query['avatar_path1'] = $this->uploadMedia($request->file('avatar_path1'));
+        }
 
-        if ($request->file('avatar_path2'))
-            $inputs['avatar_path2'] = $this->uploadMedia($request->file('avatar_path2'));
 
-        if ($request->file('avatar_path3'))
-            $inputs['avatar_path3'] = $this->uploadMedia($request->file('avatar_path3'));
+        if ($request->file('avatar_path2')){
+            $query['avatar_path2'] = $this->uploadMedia($request->file('avatar_path2'));
+        }
+
+
+        if ($request->file('avatar_path3')){
+            $query['avatar_path3'] = $this->uploadMedia($request->file('avatar_path3'));
+        }
+
 
         Home::where('id', $id)->update($query);
+
         return back()->with('success', 'ویرایش با موفقیت انجام شد');
     }
 

@@ -7,9 +7,11 @@ use App\Models\TwoFactorAuthentication;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\SendSms;
 
 class LoginController extends Controller
 {
+    use SendSms;
     public function loginForm()
     {
         return view('auth.login');
