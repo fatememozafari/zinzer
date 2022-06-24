@@ -153,7 +153,8 @@
                                                     <tr>
                                                         <td>{{ ++$key }}</td>
                                                         <td>{{$geotechnic->map_registration_number}}</td>
-                                                        <td>{{$geotechnic->owner->mobile}}</td>
+{{--                                                        <td>{{optional($geotechnic->owner)->mobile}}</td>--}}
+                                                        <td>{{($geotechnic->owner)? $geotechnic->owner->mobile : '---'}}</td>
                                                         <td>{{$geotechnic->total_building_area}}</td>
                                                         <td>{{$geotechnic->land()}}</td>
                                                         <td>{{count($geotechnic->installments) . ' قسط '}}</td>
