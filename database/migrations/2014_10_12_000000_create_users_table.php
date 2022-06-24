@@ -50,7 +50,7 @@ class CreateUsersTable extends Migration
             $table->boolean('Accept_rules')->default(false);
             $table->string('mobile','11')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
     }
