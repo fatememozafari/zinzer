@@ -8,7 +8,7 @@ use App\Models\TwoFactorAuthentication;
 use App\Traits\SendSms;
 use Illuminate\Http\Request;
 
-class OwnerController extends Controller
+class OwnersController extends Controller
 {
     use SendSms;
 
