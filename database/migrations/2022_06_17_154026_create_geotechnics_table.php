@@ -24,7 +24,7 @@ class CreateGeotechnicsTable extends Migration
             $table->integer('total_building_area');
             $table->enum('type_of_land',[Geotechnic::FINE_GRAINED_LANDS,Geotechnic::SANDY_ALLUVIAL_SOILS,Geotechnic::LARGE_SAND_ALLUVIUM]);
             $table->tinyInteger('number_of_floors');
-            $table->tinyInteger('occupancy_level_downstairs');
+            $table->Integer('occupancy_level_downstairs');
             $table->tinyInteger('number_of_underground_floors');
             $table->tinyInteger('number_of_machine_boreholes')->nullable();
             $table->text('machine_bore_depth')->nullable();

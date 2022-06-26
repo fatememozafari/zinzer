@@ -26,22 +26,22 @@ class CreateUsersTable extends Migration
             $table->string('CEO_name')->nullable();
             $table->string('CEO_lastname')->nullable();
             $table->integer('CEO_id')->nullable();
-            $table->integer('CEO_phone_number')->nullable();
+            $table->string('CEO_phone_number')->nullable();
 //            boss of the Board
             $table->string('boss_name')->nullable();
             $table->string('boss_lastname')->nullable();
             $table->integer('boss_id')->nullable();
-            $table->integer('boss_phone_number')->nullable();
+            $table->string('boss_phone_number')->nullable();
 //            member of the Board
             $table->string('member_name')->nullable();
             $table->string('member_lastname')->nullable();
             $table->integer('member_id')->nullable();
-            $table->integer('member_phone_number')->nullable();
+            $table->string('member_phone_number')->nullable();
 
             $table->string('Laboratory_address')->nullable();
-            $table->integer('Laboratory_phone_number')->nullable();
+            $table->string('Laboratory_phone_number')->nullable();
             $table->string('office_address');
-            $table->integer('office_phone_number');
+            $table->string('office_phone_number');
             $table->string('company_email')->nullable();
             $table->string('IDPay','24');
             $table->integer('Insurance_number')->nullable();
