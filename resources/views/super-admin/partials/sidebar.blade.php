@@ -17,7 +17,7 @@
                 <li class="menu-title2">پنل مدیریت انجمن</li>
 
                 <li>
-                    <a href="Counter.html" class="waves-effect">
+                    <a href="{{route('super-admin.manager-dashboard')}}" class="waves-effect">
                         <i class="dripicons-home"></i>
                         <span> پیشخوان <span class="badge badge-success badge-pill float-right">3</span></span>
                     </a>
@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="manager-dashboard.html" class="waves-effect">
+                    <a href="{{route('super-admin.edit')}}" class="waves-effect">
                         <i class="dripicons-broadcast"></i>
                         <span> ویرایش صفحات <span class="badge badge-success badge-pill float-right"></span></span>
                     </a>

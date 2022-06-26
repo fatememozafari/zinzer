@@ -92,13 +92,7 @@ class NewsController extends Controller
      */
     public function show()
     {
-        //
-//        $this->checkPermission('cases_read');
-
-        $query = News::query()
-            ->orderBy('id','DESC')
-            ->get();
-        return view('zinzer.news', ['item' => $query]);
+//
     }
 
     /**

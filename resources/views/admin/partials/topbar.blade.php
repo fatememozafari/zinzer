@@ -96,7 +96,7 @@
                 <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
                    role="button"
                    aria-haspopup="false" aria-expanded="false">
-                    {{--                    <img src="{{asset('admin//assets/images/users/avatar-6.jpg')}}" alt="user" class="rounded-circle">--}}
+                    <img src="{{asset('admin/assets/images/users/avatar-6.jpg')}}" alt="user" class="rounded-circle">
                     <span class="d-none d-md-inline-block ml-1">
 {{--                        {{auth()->user()->getFullName()}}--}}
                         {{\Illuminate\Support\Facades\Auth::user()->company_name ?? ''}} خوش امدید

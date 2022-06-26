@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Home;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,12 @@ class ManagerDashboardController extends Controller
 //            ->where('user_id',Auth::id())
             ->orderBy('id', 'DESC')
             ->get();
+        $home=Home::query()
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
 
-        return view('super-admin.manager-dashboard',compact('th','article','news'));
+        return view('super-admin.manager-dashboard',compact('th','article','news','home'));
 
   }
 

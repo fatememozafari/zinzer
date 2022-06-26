@@ -6,19 +6,21 @@
         <!-- pics -->
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            @foreach($item as $items)
+            <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
+            @endforeach
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-                <img class="d-block img-fluid mx-auto" style="width:100%; height: 500px"  src="{{$item->avatar_path1}}" alt="اسلاید اول">
+                <img class="d-block img-fluid mx-auto" style="width:100%; height: 500px"  src="{{$items->avatar_path}}" alt="اسلاید اول">
             </div>
-            <div class="carousel-item">
-                <img class="d-block img-fluid mx-auto" style="width: 100%; height: 500px"  src="{{$item->avatar_path2}}" alt="اسلاید دوم">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block img-fluid mx-auto" style="width: 100%;height: 500px"  src="{{$item->avatar_path3}}" alt="اسلاید سوم">
-            </div>
+
+            @foreach($item as $items)
+                <div class="carousel-item ">
+                    <img class="d-block img-fluid mx-auto" style="width:100%; height: 500px"  src="{{$items->avatar_path}}" alt="">
+                </div>
+            @endforeach
+
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="قبلی">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -42,7 +44,7 @@
                             <h4 class="card-title font-16 mt-0">{{$article->title}}</h4>
                             <p class="card-text" style="direction: rtl;text-align: justify">{{$article->body}}</p>
 
-                            <a href="#about">ادامه مطلب</a>
+                            <a href="/zinzer/articles/{{$article->id}}">ادامه مطلب</a>
                         </div>
                     </div>
                     @endforeach

@@ -92,7 +92,7 @@
 
                     <a class="dropdown-item" href="#"><i class="dripicons-lock text-muted"></i> ارسال تیکت </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i class="dripicons-exit text-muted"></i> خروج</a>
+                    <a class="dropdown-item" href="{{route('auth.logout')}}"><i class="dripicons-exit text-muted"></i> خروج</a>
                 </div>
             </li>
 

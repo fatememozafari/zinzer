@@ -45,19 +45,23 @@
                                             <div class="card-body">
                                                 <div class="form-group row">
                                                     <div class="col-lg-12">
+                                                        <form class="searchform" action="{{route('admin.geotechnics')}}" method="get">
 
                                                         <div class="col-lg-12">
-                                                            <input class="form-control" type="search"
-                                                                   value="" id="example-search-input">
+                                                            <input class="form-control" type="text" name="q"
+                                                                   value="" id="example-search-input" autocomplete="off">
+
+
                                                         </div>
                                                         <div class="col-lg-12">
                                                             <div class="button-items" style="text-align: center">
-                                                                <button type="button"
+                                                                <button type="submit"
                                                                         class="btn btn-primary btn-lg btn-block waves-effect waves-light">
                                                                     جستجو
                                                                 </button>
                                                             </div>
                                                         </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,9 +132,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <table id="datatable"
-                                                   class="table table-bordered dt-responsive nowrap"
-                                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <table table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                 <thead>
                                                 <tr>
                                                     <th>ردیف</th>

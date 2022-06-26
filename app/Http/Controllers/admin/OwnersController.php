@@ -38,7 +38,7 @@ class OwnersController extends Controller
             $two_factor = TwoFactorAuthentication::create($data);
 
 
-        $message = " کد احراز هویت مالک : $code";
+        $message = " کد احراز هویت مالک جهت ثبت در انجمن صنفی البرز : $code";
         if ($this->sendSms([$mobile], $message)) {
 
             $response = [

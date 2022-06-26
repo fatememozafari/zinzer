@@ -408,4 +408,18 @@ class GeoTechnicsController extends Controller
 
         return true;
     }
+//    public function search(Request $request)
+//    {
+//
+//        $items = Geotechnic::query()->orderBy('id', 'DESC');
+//
+//        if ($request->get('q')){
+//            $items = $items->where('map_registration_number', 'like', '%' . $request->get('q') . '%');
+//
+//        }
+//
+//        $items = $items->paginate(6);
+//
+//        return view('admin.geotechnics.index', compact('items', 'request'));
+//    }
 }

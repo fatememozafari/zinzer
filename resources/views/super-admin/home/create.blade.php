@@ -18,22 +18,19 @@
                         در صورت حذف تصاویر حد اقل یک تصویر باقی بماند . سایز تصاویر باید یکسان باشد (800 * 300 pixels)
 
                     </div>
-                    <form action="/super-admin/home/{{$item->id}}" method="post" enctype="multipart/form-data">
+                    <form action="/super-admin/home" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('put')
                         <div class="row">
 
                             <div class="col-lg-4">
                                 <div class="carousel-item active">
                                     <img class="d-block img-fluid mx-auto" style="width:100%"
-                                         src="{{$item->avatar_path}}" alt="اسلاید اول">
+                                         src="{{asset('zinzer/assets/images/small/0002.jpg')}}" alt="اسلاید اول">
                                 </div>
                                 <div class="button-items" style="text-align: left">
 
                                     <input class="btn btn-info waves-effect waves-light" id="avatar_path" type="file" placeholder="avatar_path"
-                                           name="avatar_path" value="{{$item->avatar_path}}">
-
-
+                                           name="avatar_path" >
 
                                 </div>
                             </div>

@@ -23,7 +23,7 @@
                             <img class="d-block img-fluid mx-auto" style="width:100%"  src="{{asset('zinzer/assets/images/small/0002.jpg')}}" alt="اسلاید اول">
                         </div>
                         <div class="button-items" style="text-align: left">
-                            <input type="button" name="avatar_path" class="btn btn-info waves-effect waves-light" value="{{$item->avatar_path}}">افزودن تصویر جدید</input>
+                            <input type="file" name="avatar_path" class="btn btn-info waves-effect waves-light" value="{{$item->avatar_path}}">افزودن تصویر جدید</input>
                         </div>
                     </div>
                     <div class="col-lg-12">

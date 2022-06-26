@@ -14,7 +14,7 @@
                                 <h4 class="card-title font-16 mt-0">{{$article->title}}</h4>
                                 <p class="card-text" style="direction: rtl;text-align: justify">{{$article->body}}</p>
 
-                                <a href="#about">ادامه مطلب</a>
+                                <a href="/zinzer/articles/{{$article->id}}">ادامه مطلب</a>
                             </div>
                         </div>
                     @endforeach

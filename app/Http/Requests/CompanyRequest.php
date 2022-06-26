@@ -31,7 +31,7 @@ class CompanyRequest extends FormRequest
             'trend' => ['required'],
             'office_address' => ['required'],
             'Laboratory_address' => ['required'],
-            'office_phone_number' => ['required','numeric','min:8'],
+            'office_phone_number' => ['required','numeric'],
             'IDPay' => ['min:24','max:24'],
             'mobile' => ['required','min:11','max:11'],
 

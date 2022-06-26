@@ -17,13 +17,12 @@ class HomeController extends Controller
     {
 
 
-        $items = Home::query()
+        $home = Home::query()
 //            ->where('user_id',Auth::id())
             ->orderBy('id', 'DESC')
-            ->limit(3)
             ->get();
 
-        return view('super-admin.home.index', compact('items'));
+        return view('super-admin.home', compact('home'));
 
 //
 //        $query=Post::get();
@@ -51,25 +50,20 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-//        $this->checkPermission('cases_create');
+
 
         $inputs = $request->only(
             'user_id',
-            'avatar_path1',
-            'avatar_path2',
-            'avatar_path3',
+            'avatar_path',
+
 
         );
         $inputs['user_id'] = Auth::user()->id;
 
-        if ($request->file('avatar_path1'))
-            $inputs['avatar_path1'] = $this->uploadMedia($request->file('avatar_path1'));
+        if ($request->file('avatar_path')){
+            $inputs['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
 
-        if ($request->file('avatar_path2'))
-            $inputs['avatar_path2'] = $this->uploadMedia($request->file('avatar_path2'));
-
-        if ($request->file('avatar_path3'))
-            $inputs['avatar_path3'] = $this->uploadMedia($request->file('avatar_path3'));
+        }
 
         $result = Home::create($inputs);
         if ($result) {
@@ -89,21 +83,7 @@ class HomeController extends Controller
     public function show()
     {
 
-        $item = Home::query()
-            ->orderBy('id','DESC')
-            ->first();
 
-        $articles=Article::query()
-            ->orderBy('id','desc')
-            ->limit(3)
-            ->get();
-        $news=News::query()
-            ->orderBy('id','desc')
-            ->limit(3)
-            ->get();
-        $lists=User::query();
-
-        return view('zinzer.home', compact('item','articles','news'));
     }
 
     /**
@@ -135,23 +115,13 @@ class HomeController extends Controller
 
         $query = $request->only(
             'user_id',
-            'avatar_path1',
-            'avatar_path2',
-            'avatar_path3',
+            'avatar_path',
+
         );
-        if ($request->file('avatar_path1')){
-            $query['avatar_path1'] = $this->uploadMedia($request->file('avatar_path1'));
+        if ($request->file('avatar_path')){
+            $query['avatar_path'] = $this->uploadMedia($request->file('avatar_path'));
         }
 
-
-        if ($request->file('avatar_path2')){
-            $query['avatar_path2'] = $this->uploadMedia($request->file('avatar_path2'));
-        }
-
-
-        if ($request->file('avatar_path3')){
-            $query['avatar_path3'] = $this->uploadMedia($request->file('avatar_path3'));
-        }
 
 
         Home::where('id', $id)->update($query);

@@ -84,10 +84,7 @@ class ArticleController extends Controller
     public function show()
     {
 
-        $query = Article::query()
-            ->orderBy('id','DESC')
-            ->get();
-        return view('zinzer.article', ['item' => $query]);
+//
     }
 
     /**

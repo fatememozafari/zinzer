@@ -24,6 +24,7 @@ Route::get('/',function ()
 // Super admin Routes
 Route::group(['prefix' => 'super-admin', 'namespace' => 'SuperAdmin', 'middleware' => 'auth'], function () {
     Route::get('/manager-dashboard', 'ManagerDashboardController@index')->name('super-admin.manager-dashboard')->middleware('auth');
+    Route::view('/edit', '/super-admin/edit')->name('super-admin.edit')->middleware('auth');
 
 });
 
@@ -38,12 +39,12 @@ Route::group(['prefix' => 'super-admin', 'namespace' => 'SuperAdmin', 'middlewar
         // GeoTechnics Routes
         Route::group(['prefix' => 'geotechnics'], function () {
 
-            Route::get('/','GeotechnicsController@index')->name('admin.geotechnics');
+            Route::get('/','GeoTechnicsController@index')->name('admin.geotechnics');
             Route::get('/create', 'GeoTechnicsController@create')->name('admin.geotechnics.create');
             Route::post('/store', 'GeoTechnicsController@store')->name('admin.geotechnics.store');
 
-            Route::get('/complete-register/{geotechnic}', 'GeotechnicsController@completeRegister')->name('admin.geotechnics.complete-register');
-            Route::post('/complete-register/store/{geotechnic}', 'GeotechnicsController@completeRegisteStore')->name('admin.geotechnics.complete-register-store');
+            Route::get('/complete-register/{geotechnic}', 'GeoTechnicsController@completeRegister')->name('admin.geotechnics.complete-register');
+            Route::post('/complete-register/store/{geotechnic}', 'GeoTechnicsController@completeRegisteStore')->name('admin.geotechnics.complete-register-store');
         });
 
 
@@ -68,7 +69,6 @@ Route::group(['prefix' => 'super-admin', 'namespace' => 'SuperAdmin', 'middlewar
     });
 
     // registered-files Routes
-        Route::get('/registered-files', 'RegisteredController@index')->name('admin.registered.index');
 
 });
 
@@ -118,34 +118,34 @@ Route::put('/super-admin/contact/{id}',[ContactController::class,'update']);
 
 
 // home Routes
-Route::get('/', [HomeController::class,'show']);
-Route::get('/zinzer/home', [HomeController::class,'show'])->name('zinzer.home');
-Route::get('/super-admin/home',[HomeController::class,'index']);
+Route::get('/super-admin/home', [HomeController::class,'index'])->name('super-admin.home');
 Route::get('/super-admin/home/create',[HomeController::class,'create']);
-Route::post('/super-admin/home/create',[HomeController::class,'store']);
+Route::post('/super-admin/home',[HomeController::class,'store']);
 Route::get('/super-admin/home/{id}/edit',[HomeController::class,'edit']);
 Route::put('/super-admin/home/{id}',[HomeController::class,'update']);
 Route::delete('super-admin/home/{id}', [HomeController::class,'destroy'])->name('home.delete')->middleware('auth');
+Route::get('/zinzer/home', [\App\Http\Controllers\zinzer\HomeController::class,'show'])->name('zinzer.home');
+Route::get('/', [\App\Http\Controllers\zinzer\HomeController::class,'show']);
 
 // article Routes
 Route::get('super-admin/article', [\App\Http\Controllers\SuperAdmin\ArticleController::class,'index'])->name('article.index');
-Route::get('zinzer/article', [\App\Http\Controllers\SuperAdmin\ArticleController::class,'show'])->name('zinzer.article');
 Route::get('super-admin/article/{id}/edit', [\App\Http\Controllers\SuperAdmin\ArticleController::class,'edit'])->name('article')->middleware('auth');
 Route::put('super-admin/article/{id}', [\App\Http\Controllers\SuperAdmin\ArticleController::class,'update'])->name('article.update')->middleware('auth');
-Route::get('super-admin/article/create', [\App\Http\Controllers\SuperAdmin\ArticleController::class,'create'])->name('article.create')->middleware('auth');
+Route::get('super-admin/article/create', [\App\Http\Controllers\SuperAdmin\ArticleController::class,'create'])->name('article.')->middleware('auth');
 Route::post('super-admin/article', [\App\Http\Controllers\SuperAdmin\ArticleController::class,'store'])->name('article.store')->middleware('auth');
 Route::delete('super-admin/article/{id}', [\App\Http\Controllers\SuperAdmin\ArticleController::class,'destroy'])->name('article.delete')->middleware('auth');
-
+Route::get('zinzer/articles/{id}', [\App\Http\Controllers\zinzer\ArticleController::class, 'show']);
+Route::get('zinzer/articles', [\App\Http\Controllers\zinzer\ArticleController::class,'index'])->name('zinzer.article');
 
 // news Routes
 Route::get('super-admin/news', [\App\Http\Controllers\SuperAdmin\NewsController::class,'index'])->name('news.index');
-Route::get('zinzer/news', [\App\Http\Controllers\SuperAdmin\NewsController::class,'show'])->name('zinzer.news');
 Route::get('super-admin/news/{id}/edit', [\App\Http\Controllers\SuperAdmin\NewsController::class,'edit'])->name('news')->middleware('auth');
 Route::put('super-admin/news/{id}', [\App\Http\Controllers\SuperAdmin\NewsController::class,'update'])->name('news.update')->middleware('auth');
 Route::get('super-admin/news/create', [\App\Http\Controllers\SuperAdmin\NewsController::class,'create'])->name('news.create')->middleware('auth');
 Route::post('super-admin/news', [\App\Http\Controllers\SuperAdmin\NewsController::class,'store'])->name('news.store')->middleware('auth');
 Route::delete('super-admin/news/{id}', [\App\Http\Controllers\SuperAdmin\NewsController::class,'destroy'])->name('news.delete')->middleware('auth');
-
+Route::get('zinzer/news/{id}', [\App\Http\Controllers\zinzer\NewsController::class, 'show']);
+Route::get('zinzer/news', [\App\Http\Controllers\zinzer\NewsController::class,'index'])->name('zinzer.news');
 
 
 
